@@ -1,12 +1,13 @@
+import re
 class preprocess:
   def canceledWords(Wordw):
-      flag=0
-      CanceledWord=['Break','break','print','System','cout','Cout','Cin','Class','class','cin','main','namespace']
+      flag=0 
+      CanceledWord=['Break','break','print','Print','System','system','cout','Cout','Cin','Class','class','cin','main','namespace','Main','Namespace']
       for checkword in CanceledWord:
          if Wordw.find(checkword)!=-1:
-            flaag=1
+            flag=1
             break
-      return flaag
+      return flag
 
   def pre_processing(path) :
          file1 = open(path, 'r')          
@@ -16,13 +17,13 @@ class preprocess:
           file2 = open('D:\\resultpre.py', 'w')
           for line in Lines:
             line=line.strip()
-            lin = re.sub(r'\s+', ' ', line)
+            line = re.sub(r'\s+', ' ', line)
             line=re.sub(r'\'.*?\'', '\'\'', line)
             line=re.sub(r'\".*?\"', '\'\'', line)
-           
+
 
             if not(line.strip()=="" or (line.startswith("import"))):
-               if not(line.find("\'''")>-1 or line.find("\"""")>-1)and (comment==0):                  
+               if not(line.find("\'''")>-1 or line.find('\"""')>-1)and (comment==0):                  
                   if line.find("#")==0:                  
                      continue
                   else:
@@ -39,24 +40,24 @@ class preprocess:
                            file2.write( line+"\n")
                else:
                   
-                  if (line.find("\'''")>-1 or line.find("\"""") >-1) and (comment==0):
+                  if (line.find("\'''")>-1 or line.find('\"""') >-1) and (comment==0):
                         comment=1
                   
-                        if not(line.startswith("\'''") or line.startswith("\"""") ):
+                        if not(line.startswith("\'''") or line.startswith('\"""') ):
                            
                            line=line[0:line.find("\'''")]
-                           if canceledWorks(line)==1:
+                           if preprocess.canceledWords(line)==1:
                               file2.write(line+"Can Li\n")
                            else:
                              file2.write(line+"\n")
                   else:
-                     if (line.find("\'''")>=0 or line.find("\"""") >=0) and (comment==1):
+                     if (line.find("\'''")>=0 or line.find('\"""') >=0) and (comment==1):
                            
                            line=line[line.find("\'''")+3:]
                            comment=0
                            if line.strip()!="":
-                              if canceledWords(line)==1:
-                                file.write(line+"Can Li\n")
+                              if preprocess.canceledWords(line)==1:
+                                file2.write(line+"Can Li\n")
                               else:
                                 file2.write(line+"\n")
                      else:
@@ -98,7 +99,7 @@ class preprocess:
                   if (line.find("/*")>-1 ) and (comment==0):
                         comment=1
                   
-                        if not(line.startswit("/*") ):
+                        if not(line.startswith("/*") ):
                      
                            line=line[0:line.find("/*")]
                            if preprocess.canceledWords(line)==1:
@@ -117,7 +118,7 @@ class preprocess:
                               else:
                                  file2.write( line+"\n")
                      else:
-                       # ✅ if not(line.find("*/")>=0 ) and (comment==1):
+                        if not(line.find("*/")>=0 ) and (comment==1):
                             
                             file2.write( line+"Can Li\n\n")
 
@@ -125,7 +126,7 @@ class preprocess:
                      
                          
             else:
-               if (line.striip()=="" or (line.startswith("import")) or (line.startswith("#include")) or (line.find('main')!=-1)or (line.startswith('using namespace'))):
+               if (line.strip()=="" or (line.startswith("import")) or (line.startswith("#include")) or (line.find('main')!=-1)or (line.startswith('using namespace'))):
                      file2.write(line+"Can Li\n\n")
                
          file1.close()
