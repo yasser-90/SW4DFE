@@ -1,0 +1,11 @@
+1- re module been used without importing it
+2- 'file2' instead 'file' in line 62.
+3- Calling 'canceledWorks' instead of 'canceledWords' in line 51. 
+4- 'e' messing form 'line' in line 23
+5- 'striip' instead 'strip' in line 132.
+6- 'startswit' instead 'startswith' in line 105.
+7- 'flaag' instead of 'flag' in lines 11, 13.
+8- Add 'self' to the class's functions
+9- Capitalize the class's name.
+10- Cancel if statment in line 39.
+
